@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 function App() {
   const [allCountries, setAllCountries] = useState([]);
   const [allCapitals, setAllCapitals] = useState([]);
+  const [nameFilter, setFilterName] = useState("");
 
   useEffect(() => {
     getCountries();
@@ -20,12 +21,10 @@ function App() {
         //* Отримуємо назви країн
         const allRegions = countries.map((c) => c.name.common);
         const uniqueRegions = [...new Set(allRegions)];
-        // uniqueRegions.sort();
 
         //* Отримуємо назви столиць
         const allCapitals = countries.map((c) => c.capital);
         const uniqueCap = [...new Set(allCapitals)];
-        // uniqueCap.sort();
 
         const countryData = countries.map((c) => ({
           name: c.name.common,
@@ -34,8 +33,6 @@ function App() {
         }));
 
         setAllCountries(countryData);
-
-        // setAllCountries(uniqueRegions);
         setAllCapitals(uniqueCap);
       })
       .catch((error) => {
@@ -43,13 +40,24 @@ function App() {
       });
   };
 
+  const filterSubmit = () => {
+    event.preventDefault();
+  };
+
+  const handleFilterNameChange = (event) => setFilterName(event.target.value);
+
   return (
     <div className="countriesContainer">
       <h2>Countries</h2>
 
-      {/* <form onSubmit={}>
-        <input></input>
-      </form> */}
+      <form onSubmit={filterSubmit}>
+        <input
+          value={nameFilter}
+          onChange={handleFilterNameChange}
+          placeholder="Enter country name..."
+        ></input>
+        <button> push me</button>
+      </form>
 
       <table>
         <thead>
@@ -60,13 +68,17 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {allCountries.map((country, index) => (
-            <tr key={index}>
-              <td>{country.name}</td>
-              <td>{country.capital}</td>
-              <td>{country.region}</td>
-            </tr>
-          ))}
+          {allCountries
+            .filter((country) =>
+              country.name.toLowerCase().includes(nameFilter.toLowerCase())
+            )
+            .map((country, index) => (
+              <tr key={index}>
+                <td>{country.name}</td>
+                <td>{country.capital}</td>
+                <td>{country.region}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
