@@ -6,6 +6,7 @@ function App() {
   const [allCountries, setAllCountries] = useState([]);
   const [allCapitals, setAllCapitals] = useState([]);
   const [nameFilter, setFilterName] = useState("");
+  const [inputError, setInputError] = useState(false);
 
   useEffect(() => {
     getCountries();
@@ -40,17 +41,33 @@ function App() {
       });
   };
 
-  const filterSubmit = () => {
-    event.preventDefault();
-  };
-
   const handleFilterNameChange = (event) => setFilterName(event.target.value);
+
+  const filteredCountries = allCountries.filter((country) =>
+    country.name.toLowerCase().includes(nameFilter.toLowerCase())
+  );
+
+  useEffect(() => {
+    if (nameFilter.length === 0) {
+      setInputError(false);
+    } else if (filteredCountries.length > 10) {
+      setInputError(true);
+    } else {
+      setInputError(false);
+    }
+  }, [filteredCountries, nameFilter]);
 
   return (
     <div className="countriesContainer">
       <h2>Countries</h2>
 
-      <form onSubmit={filterSubmit}>
+      <form>
+        <p
+          className="inputError"
+          style={{ display: inputError ? "block" : "none" }}
+        >
+          Введіть більше символів
+        </p>
         <input
           value={nameFilter}
           onChange={handleFilterNameChange}
@@ -68,17 +85,13 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {allCountries
-            .filter((country) =>
-              country.name.toLowerCase().includes(nameFilter.toLowerCase())
-            )
-            .map((country, index) => (
-              <tr key={index}>
-                <td>{country.name}</td>
-                <td>{country.capital}</td>
-                <td>{country.region}</td>
-              </tr>
-            ))}
+          {filteredCountries.map((country, index) => (
+            <tr key={index}>
+              <td>{country.name}</td>
+              <td>{country.capital}</td>
+              <td>{country.region}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
@@ -88,8 +101,8 @@ function App() {
 export default App;
 
 //? Программа повинна:
-//? Отримувати данні з віддаленного сервера
-//? Фільтрувати їх у режимі реального часу
+//? Отримувати данні з віддаленного сервера - ✅
+//? Фільтрувати їх у режимі реального часу - ✅
 //? Рахувати кількість знайдених країн
 //?   --- Якшо країн більше 10 то попросити користувача ввести більше символів
 //?   --- Якшо краЇн менше 10 то показати список країн

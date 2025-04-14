@@ -81,3 +81,8 @@ td {
 form {
   margin-bottom: 10px;
 }
+
+.inputError {
+  font-size: 10px;
+  color: red;
+}
