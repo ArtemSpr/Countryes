@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [allCountries, setAllCountries] = useState([]);
-  const [allCapitals, setAllCapitals] = useState([]);
   const [nameFilter, setFilterName] = useState("");
   const [inputError, setInputError] = useState(false);
 
@@ -19,22 +18,24 @@ function App() {
         console.log("Дані про країни отримано");
         const countries = response.data;
 
-        //* Отримуємо назви країн
-        const allRegions = countries.map((c) => c.name.common);
-        const uniqueRegions = [...new Set(allRegions)];
-
-        //* Отримуємо назви столиць
-        const allCapitals = countries.map((c) => c.capital);
-        const uniqueCap = [...new Set(allCapitals)];
-
         const countryData = countries.map((c) => ({
           name: c.name.common,
           capital: c.capital?.[0] || "No capital",
           region: c.region || "No region",
+          officialName: c.name.official,
+          currency: c.currencies
+            ? Object.values(c.currencies)[0].name
+            : "No currency",
+          languages: c.languages
+            ? Object.values(c.languages)
+            : ["No languages"],
+          area: c.area,
+          flag: c.flags.svg,
+          population: c.population,
+          timezones: c.timezones,
         }));
 
         setAllCountries(countryData);
-        setAllCapitals(uniqueCap);
       })
       .catch((error) => {
         console.error("Помилка при отриманні даних:", error);
@@ -52,10 +53,26 @@ function App() {
       setInputError(false);
     } else if (filteredCountries.length > 10) {
       setInputError(true);
+    } else if (filteredCountries.length === 1) {
+      setInputError(false);
+      const countryCard = () => {
+        return (
+          <div className="countryCard">
+            <div className="cardTitle"></div>
+            <div className="cardInfo">
+              <div className="cardInfoTitle">d</div>
+              <div className="cardInfoBlock">
+                <div className="cardBlockItem"></div>
+              </div>
+            </div>
+          </div>
+        );
+      };
     } else {
       setInputError(false);
     }
   }, [filteredCountries, nameFilter]);
+  console.log(filteredCountries);
 
   return (
     <div className="countriesContainer">
@@ -73,15 +90,14 @@ function App() {
           onChange={handleFilterNameChange}
           placeholder="Enter country name..."
         ></input>
-        <button> push me</button>
       </form>
 
       <table>
         <thead>
           <tr>
-            <th className="tit">Name</th>
-            <th className="tit">Capital</th>
-            <th className="tit">Region</th>
+            <th className="title">Name</th>
+            <th className="title">Capital</th>
+            <th className="title">Region</th>
           </tr>
         </thead>
         <tbody>
@@ -94,6 +110,67 @@ function App() {
           ))}
         </tbody>
       </table>
+      {filteredCountries.length === 1 && (
+        <div className="countryCard">
+          <div className="cardTitle">
+            {filteredCountries[0].name}{" "}
+            <div className="flagWrapper">
+              <img
+                src={filteredCountries[0].flag}
+                alt="flag"
+                className="countryFlag"
+              />
+            </div>
+          </div>
+          <div className="cardInfo">
+            <div className="cardInfoTitle">Detail info about country</div>
+            <div className="cardInfoBlock">
+              <div className="cardBlockItem">
+                <ul className="infoList">
+                  <li>
+                    <span className="label">Capital:</span>{" "}
+                    {filteredCountries[0].capital}
+                  </li>
+                  <li>
+                    <span className="label">Region:</span>{" "}
+                    {filteredCountries[0].region}
+                  </li>
+                  <li>
+                    <span className="label">Official name:</span>{" "}
+                    {filteredCountries[0].officialName}
+                  </li>
+                  <li>
+                    <span className="label">Currency:</span>{" "}
+                    {filteredCountries[0].currency}
+                  </li>
+                </ul>
+
+                <ul className="infoList">
+                  <li>
+                    <span className="label">Languages:</span>{" "}
+                    {Object.values(filteredCountries[0].languages || {}).join(
+                      ", "
+                    )}
+                  </li>
+                  <li>
+                    <span className="label">Area:</span>{" "}
+                    {filteredCountries[0].area}
+                    m²
+                  </li>
+                  <li>
+                    <span className="label">Population:</span>{" "}
+                    {filteredCountries[0].population}
+                  </li>
+                  <li>
+                    <span className="label">Timezones:</span>{" "}
+                    {filteredCountries[0].timezones?.join(", ")}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -104,7 +181,7 @@ export default App;
 //? Отримувати данні з віддаленного сервера - ✅
 //? Фільтрувати їх у режимі реального часу - ✅
 //? Рахувати кількість знайдених країн
-//?   --- Якшо країн більше 10 то попросити користувача ввести більше символів
-//?   --- Якшо краЇн менше 10 то показати список країн
+//?   --- Якшо країн більше 10 то попросити користувача ввести більше символів - ✅
+//?   --- Якшо краЇн менше 10 то показати список країн - ✅
 //?   --- Якшо є лише 1 країна то показати детальну інформацію про неї
 //?

@@ -1,25 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Nunito&family=Rubik&display=swap");
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -28,11 +19,34 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f2f6fc;
+  color: #1f2d3d;
+  font-family: "Inter", sans-serif;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #535bf2;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2,
+.cardTitle {
+  font-family: "Rubik", sans-serif;
+  color: #006666;
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 button {
@@ -48,9 +62,11 @@ button {
   color: #242424;
   margin-left: 10px;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -61,28 +77,153 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
 }
 
-.tit {
-  border: 2px solid white;
-  background-color: grey;
-}
-
-td {
-  border: 2px solid white;
-}
+/* Form */
 
 form {
   margin-bottom: 10px;
 }
 
+input {
+  padding: 10px 14px;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 14px;
+  color: #102a43;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-bottom: 10px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #00a896;
+  box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.2);
+}
+
 .inputError {
-  font-size: 10px;
-  color: red;
+  color: #ff6b6b;
+  font-weight: 500;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  padding-left: 4px;
+  transition: opacity 0.3s ease;
+}
+
+/* Table */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #d9e2ec;
+  text-align: left;
+}
+
+th.title {
+  background-color: #00a896;
+  color: white;
+  font-weight: bold;
+}
+
+/* Country Card */
+
+.countryCard {
+  background-color: #ffffff;
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cardTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0b3954;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cardInfoTitle {
+  font-size: 1.2em;
+  color: #00a896;
+  margin-bottom: 12px;
+}
+
+/* Lists */
+
+.cardBlockItem ul,
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 16px;
+  text-align-last: left;
+}
+
+.cardBlockItem li,
+.infoList li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #1f2d3d;
+  line-height: 1.5;
+}
+
+.cardBlockItem li::before,
+.infoList li::before {
+  content: "➡️";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 14px;
+}
+
+/* Label */
+
+.label {
+  font-weight: 600;
+  color: #0b3954;
+  display: inline-block;
+  width: 130px;
+}
+
+/* Flag */
+
+.flagWrapper {
+  background-color: #f0f0f0;
+  padding: 8px;
+  border-radius: 8px;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 90px;
+}
+
+.countryFlag {
+  width: 100px;
+  height: 60px;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
 }
