@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import axios from "axios";
+import TimeSwitcher from "./TimeSwitcher";
 
 function App() {
   const [allCountries, setAllCountries] = useState([]);
   const [nameFilter, setFilterName] = useState("");
   const [inputError, setInputError] = useState(false);
-
-  const checkboxRef = useRef(null);
 
   useEffect(() => {
     getCountries();
@@ -57,36 +56,10 @@ function App() {
     }
   }, [filteredCountries, nameFilter]);
 
-  const handleThemeChange = () => {
-    const block = document.body;
-
-    if (checkboxRef.current?.checked) {
-      block.classList.add("darkTheme");
-    } else {
-      block.classList.remove("darkTheme");
-    }
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem("theme") === "dark") {
-      document.body.classList.add("darkTheme");
-    }
-  }, []);
-
   return (
     <div className="countriesContainer" id="mainDiv">
       <h2 id="mainTitle">Countries</h2>
-
-      <label>
-        <input
-          type="checkbox"
-          className="colorThemeCheckbox"
-          ref={checkboxRef}
-          onChange={handleThemeChange}
-        />
-        Dark theme
-      </label>
-
+      <TimeSwitcher />
       <form>
         <p
           className="inputError"
