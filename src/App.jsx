@@ -84,17 +84,6 @@ function App() {
           ref={checkboxRef}
           onChange={handleThemeChange}
         />
-        <button
-          onClick={() => {
-            document.body.classList.toggle("darkTheme");
-            localStorage.setItem(
-              "theme",
-              document.body.classList.contains("darkTheme") ? "dark" : "light"
-            );
-          }}
-        >
-          🌓
-        </button>
         Dark theme
       </label>
 
