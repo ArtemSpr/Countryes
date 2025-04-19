@@ -72,23 +72,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/* Form */
-
 form {
   margin-bottom: 10px;
 }
@@ -121,8 +104,6 @@ input:focus {
   transition: opacity 0.3s ease;
 }
 
-/* Table */
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -144,8 +125,6 @@ th.title {
   color: white;
   font-weight: bold;
 }
-
-/* Country Card */
 
 .countryCard {
   background-color: #ffffff;
@@ -169,8 +148,6 @@ th.title {
   color: #00a896;
   margin-bottom: 12px;
 }
-
-/* Lists */
 
 .cardBlockItem ul,
 .infoList {
@@ -199,16 +176,12 @@ th.title {
   font-size: 14px;
 }
 
-/* Label */
-
 .label {
   font-weight: 600;
   color: #0b3954;
   display: inline-block;
   width: 130px;
 }
-
-/* Flag */
 
 .flagWrapper {
   background-color: #f0f0f0;
@@ -220,10 +193,213 @@ th.title {
 }
 
 .countryFlag {
-  width: 100px;
-  height: 60px;
+  width: 120px;
+  height: 80px;
   object-fit: contain;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: white;
+}
+
+.darkThemeTitle {
+  color: #88c0d0;
+}
+
+.darkThemeInput {
+  background-color: #2c2f5a;
+}
+
+body.darkTheme h2 {
+  color: #00a896;
+}
+
+body.darkTheme {
+  background-color: #2e3440;
+  color: #d8dee9;
+}
+
+body.darkTheme th {
+  background-color: #88c0d0;
+  color: #3b4252;
+}
+
+body.darkTheme td {
+  background-color: #3b4252;
+  color: #d8dee9;
+  padding: 12px 16px;
+  border-bottom: 1px solid #4c566a;
+}
+
+body.darkTheme td:hover {
+  background-color: #434c5e;
+  color: #eceff4;
+}
+
+.darkTheme .countryCard {
+  background-color: #2e3440;
+  color: #d8dee9;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  margin-top: 24px;
+  border: 1px solid #4c566a;
+}
+
+.darkTheme .cardTitle {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #88c0d0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.darkTheme .cardInfoTitle {
+  font-size: 1.2em;
+  color: #5e81ac;
+  margin-bottom: 12px;
+}
+
+.darkTheme .flagWrapper {
+  background-color: #2e3440;
+  padding: 8px;
+  border-radius: 8px;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  margin-left: 90px;
+}
+
+.darkTheme .countryFlag {
+  width: 120px;
+  height: 80px;
+  object-fit: contain;
+  border: 1px solid #4c566a;
+  border-radius: 4px;
+  background-color: #eceff4;
+}
+
+.darkTheme .cardInfoBlock {
+  background-color: #3b4252;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #4c566a;
+}
+
+.darkTheme .infoList li {
+  color: #eceff4;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.darkTheme .infoList li::before {
+  content: "➡️";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 14px;
+}
+
+.darkTheme .label {
+  font-weight: 600;
+  color: #81a1c1;
+  display: inline-block;
+  width: 130px;
+}
+
+.darkTheme input,
+.darkTheme textarea,
+.darkTheme select {
+  background-color: #3b4252;
+  color: #d8dee9;
+  border: 1px solid #4c566a;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.darkTheme input::placeholder {
+  color: #b0c4de;
+}
+
+* {
+  transition: all 0.3s ease;
+}
+
+/* ThemeSwitcher.css */
+.theme-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle-checkbox {
+  display: none;
+}
+
+.theme-toggle-label {
+  display: flex;
+  align-items: center;
+  background-color: #00a896;
+  border-radius: 30px;
+  position: relative;
+  width: 50px;
+  height: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle-checkbox:checked + .theme-toggle-label {
+  background-color: #88c0d0;
+}
+
+.theme-icon {
+  position: absolute;
+  font-size: 18px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0; /* Початкове значення для невидимості */
+}
+
+.sun {
+  left: 30px;
+}
+
+.moon {
+  right: -20px;
+}
+
+/* Змінюємо opacity для анімації */
+.theme-toggle-checkbox:checked + .theme-toggle-label .sun {
+  opacity: 0;
+  transform: translateX(25px);
+}
+
+.theme-toggle-checkbox:checked + .theme-toggle-label .moon {
+  opacity: 1;
+  transform: translateX(-25px);
+}
+
+.theme-toggle-checkbox:not(:checked) + .theme-toggle-label .sun {
+  opacity: 1;
+  transform: translateX(-25px);
+}
+
+.theme-toggle-checkbox:not(:checked) + .theme-toggle-label .moon {
+  opacity: 0;
+  transform: translateX(25px);
+}
+
+.hidden {
+  display: none;
+}
+
+body.darkTheme {
+  background-color: #2e3440;
+  color: #d8dee9;
+}
+
+body.darkTheme .theme-toggle-label {
+  background-color: #88c0d0;
 }
