@@ -2,11 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import axios from "axios";
 import TimeSwitcher from "./TimeSwitcher";
+import CountryCard from "./CountryCard";
 
 function App() {
   const [allCountries, setAllCountries] = useState([]);
   const [nameFilter, setFilterName] = useState("");
   const [inputError, setInputError] = useState(false);
+  const [activeCountryIndex, setActiveCountryIndex] = useState(null);
+  const [didActiveCountryCard, setDidActiveCountryCard] = useState(false);
 
   useEffect(() => {
     getCountries();
@@ -56,6 +59,14 @@ function App() {
     }
   }, [filteredCountries, nameFilter]);
 
+  const handleShowClick = (index) => {
+    setActiveCountryIndex((prev) => {
+      const isSame = prev === index;
+      setDidActiveCountryCard(!isSame);
+      return isSame ? null : index;
+    });
+  };
+
   return (
     <div className="countriesContainer" id="mainDiv">
       <h2 id="mainTitle">Countries</h2>
@@ -81,6 +92,13 @@ function App() {
             <th className="title">Name</th>
             <th className="title">Capital</th>
             <th className="title">Region</th>
+            {filteredCountries.length <= 10 &&
+              filteredCountries.length !== 1 && (
+                <th className="title">Details</th>
+              )}
+            {didActiveCountryCard === true && (
+              <th className="title">Country Card</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -89,66 +107,35 @@ function App() {
               <td>{country.name}</td>
               <td>{country.capital}</td>
               <td>{country.region}</td>
+              {filteredCountries.length <= 10 &&
+                filteredCountries.length !== 1 && (
+                  <td>
+                    <button
+                      className="button"
+                      onClick={() => handleShowClick(index)}
+                    >
+                      {activeCountryIndex === index ? "Hide" : "Show"}
+                    </button>
+                  </td>
+                )}
+              {activeCountryIndex === index && (
+                <td colSpan="4">
+                  <CountryCard country={country} />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
       {filteredCountries.length === 1 && (
-        <div className="countryCard">
-          <div className="cardTitle">
-            {filteredCountries[0].name}
-            <div className="flagWrapper">
-              <img
-                src={filteredCountries[0].flag}
-                alt="flag"
-                className="countryFlag"
-              />
-            </div>
-          </div>
-          <div className="cardInfo">
-            <div className="cardInfoTitle">Detail info about country</div>
-            <div className="cardInfoBlock">
-              <ul className="infoList">
-                <li>
-                  <span className="label">Capital:</span>{" "}
-                  {filteredCountries[0].capital}
-                </li>
-                <li>
-                  <span className="label">Region:</span>{" "}
-                  {filteredCountries[0].region}
-                </li>
-                <li>
-                  <span className="label">Official name:</span>{" "}
-                  {filteredCountries[0].officialName}
-                </li>
-                <li>
-                  <span className="label">Currency:</span>{" "}
-                  {filteredCountries[0].currency}
-                </li>
-                <li>
-                  <span className="label">Languages:</span>{" "}
-                  {filteredCountries[0].languages.join(", ")}
-                </li>
-                <li>
-                  <span className="label">Area:</span>{" "}
-                  {filteredCountries[0].area} m²
-                </li>
-                <li>
-                  <span className="label">Population:</span>{" "}
-                  {filteredCountries[0].population}
-                </li>
-                <li>
-                  <span className="label">Timezones:</span>{" "}
-                  {filteredCountries[0].timezones.join(", ")}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <CountryCard country={filteredCountries[0]} />
       )}
     </div>
   );
 }
+
+//! Якшо картка показується і користувач вводить нове ім'я країни
+//! то картка не закривається і показується нова країна
 
 export default App;
 
@@ -160,5 +147,5 @@ export default App;
 //?   --- Якшо краЇн менше 10 то показати список країн - ✅
 //?   --- Якшо є лише 1 країна то показати детальну інформацію про неї  - ✅
 //? Додати темну тему
-//?   --- Додати кнопку для перемикання теми
-//?   --- Додати стилі для темної теми
+//?   --- Додати кнопку для перемикання теми- ✅
+//?   --- Додати стилі для темної теми- ✅

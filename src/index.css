@@ -213,6 +213,10 @@ body.darkTheme h2 {
   color: #00a896;
 }
 
+body.darkTheme table {
+  background-color: #3b4252;
+}
+
 body.darkTheme {
   background-color: #2e3440;
   color: #d8dee9;
@@ -402,4 +406,52 @@ body.darkTheme {
 
 body.darkTheme .theme-toggle-label {
   background-color: #88c0d0;
+}
+
+.button {
+  background-color: #00a896;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #00887a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.3);
+}
+
+body.darkTheme .button {
+  background-color: #88c0d0;
+  color: #2e3440;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+body.darkTheme .button:hover {
+  background-color: #81a1c1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.darkTheme .button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(136, 192, 208, 0.4);
 }
