@@ -83,6 +83,7 @@ function App() {
           value={nameFilter}
           onChange={handleFilterNameChange}
           placeholder="Enter country name..."
+          autoComplete="off"
         />
       </form>
 

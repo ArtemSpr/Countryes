@@ -455,3 +455,85 @@ body.darkTheme .button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(136, 192, 208, 0.4);
 }
+
+.weatherContainer {
+  background-color: var(--weather-bg, #ffffff);
+  color: var(--weather-text, #1f2d3d);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.weatherTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #006666;
+  text-align: center;
+  margin-bottom: 16px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.weatherTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.weatherSituation {
+  font-size: 1.1rem;
+  color: #0b3954;
+}
+
+.weatherTempBlock {
+  text-align: right;
+}
+
+.temperature {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.feelsLike {
+  font-size: 0.95rem;
+  color: #102a43;
+}
+
+.weatherGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  font-size: 0.95rem;
+}
+
+.weatherGrid div {
+  background-color: #f2f6fc;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #d9e2ec;
+}
+
+/* Темна тема */
+.darkTheme .weatherContainer {
+  background-color: #2e3440;
+  color: #d8dee9;
+}
+
+.darkTheme .weatherTitle {
+  color: #88c0d0;
+}
+
+.darkTheme .weatherGrid div {
+  background-color: #3b4252;
+  border: 1px solid #4c566a;
+}
+
+.darkTheme .feelsLike {
+  font-size: 0.95rem;
+  color: #d8dee9;
+}
