@@ -1,7 +1,28 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
 const CountryCard = ({ country }) => {
+  const [geoJsonData, setGeoJsonData] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+      )
+      .then((res) => {
+        const found = res.data.features.find(
+          (f) => f.properties.name === country.name // використовуємо 'name' замість 'ADMIN'
+        );
+        if (found) setGeoJsonData(found);
+      })
+      .catch((err) => {
+        console.error("GeoJSON error:", err);
+      });
+  }, [country.name]);
+
   if (!country) return null;
 
   const [weatherSituation, setWeatherSituation] = useState("");
@@ -40,6 +61,17 @@ const CountryCard = ({ country }) => {
     .catch((error) => {
       console.error(error);
     });
+
+  const { latitude, longitude } = country;
+
+  // Фікс для іконок Leaflet у React:
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl:
+      "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+    iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+    shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  });
 
   return (
     <div className="countryCard">
@@ -82,30 +114,54 @@ const CountryCard = ({ country }) => {
             </li>
           </ul>
 
-          {/* Блок погоди */}
-          <div className="weatherContainer">
-            <div className="weatherTitle">Weather in {country.capital}</div>
+          <div className="extraInfo">
+            {/* Блок погоди */}
+            <div className="weatherContainer">
+              <div className="weatherTitle">Weather in {country.capital}</div>
 
-            <div className="weatherTop">
-              {weatherSituation !== undefined && (
-                <div className="weatherSituation">🌤️ {weatherSituation}</div>
-              )}
-              <div className="weatherTempBlock">
-                <div className="temperature">{temperature}°C</div>
-                <div className="feelsLike">Feels like {feelsLike}°C</div>
+              <div className="weatherTop">
+                {weatherSituation !== undefined && (
+                  <div className="weatherSituation">🌤️ {weatherSituation}</div>
+                )}
+                <div className="weatherTempBlock">
+                  <div className="temperature">{temperature}°C</div>
+                  <div className="feelsLike">Feels like {feelsLike}°C</div>
+                </div>
+              </div>
+
+              <div className="weatherGrid">
+                <div>💧 Humidity: {humidity}%</div>
+                <div>
+                  🌬️ Wind: {windSpeed} m/s ({windDeg}°)
+                </div>
+                <div>☁️ Clouds: {clouds}%</div>
+                {rain !== undefined && <div>🌧️ Rain (1h): {rain} mm</div>}
+                {snow !== undefined && <div>❄️ Snow (1h): {snow} mm</div>}
+                <div>🌅 Sunrise: {sunrise}</div>
+                <div>🌇 Sunset: {sunset}</div>
               </div>
             </div>
-
-            <div className="weatherGrid">
-              <div>💧 Humidity: {humidity}%</div>
-              <div>
-                🌬️ Wind: {windSpeed} m/s ({windDeg}°)
-              </div>
-              <div>☁️ Clouds: {clouds}%</div>
-              {rain !== undefined && <div>🌧️ Rain (1h): {rain} mm</div>}
-              {snow !== undefined && <div>❄️ Snow (1h): {snow} mm</div>}
-              <div>🌅 Sunrise: {sunrise}</div>
-              <div>🌇 Sunset: {sunset}</div>
+            {/* Блок карти */}
+            <div className="mapContainer">
+              <MapContainer
+                center={[latitude, longitude]}
+                zoom={4}
+                style={{ height: "400px" }}
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution="&copy; OpenStreetMap contributors"
+                />
+                <Marker position={[latitude, longitude]}>
+                  <Popup>{country.capital}</Popup>
+                </Marker>
+                {geoJsonData && (
+                  <GeoJSON
+                    data={geoJsonData}
+                    style={{ color: "blue", weight: 2 }}
+                  />
+                )}
+              </MapContainer>
             </div>
           </div>
         </div>

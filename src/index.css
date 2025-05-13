@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&family=Nunito&family=Rubik&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
 
 :root {
-  font-family: "Inter", sans-serif;
+  font-family: "Quicksand", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -21,7 +23,7 @@ body {
   min-height: 100vh;
   background-color: #f2f6fc;
   color: #1f2d3d;
-  font-family: "Inter", sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
 a {
@@ -39,12 +41,15 @@ h1 {
   line-height: 1.1;
 }
 
+#mainTitle {
+  font-size: 50px;
+  font-family: "Arvo", sans-serif;
+}
+
 h2,
 .cardTitle {
-  font-family: "Rubik", sans-serif;
+  font-family: "Arvo", sans-serif;
   color: #006666;
-  font-size: 1.8em;
-  font-weight: 700;
   margin-bottom: 20px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
@@ -126,6 +131,10 @@ th.title {
   font-weight: bold;
 }
 
+.countriesContainer {
+  width: 60vw;
+}
+
 .countryCard {
   background-color: #ffffff;
   margin-top: 24px;
@@ -135,7 +144,7 @@ th.title {
 }
 
 .cardTitle {
-  font-size: 1.5em;
+  font-size: 40px;
   font-weight: bold;
   color: #0b3954;
   display: flex;
@@ -144,7 +153,7 @@ th.title {
 }
 
 .cardInfoTitle {
-  font-size: 1.2em;
+  font-size: 30px;
   color: #00a896;
   margin-bottom: 12px;
 }
@@ -153,8 +162,7 @@ th.title {
 .infoList {
   list-style: none;
   padding: 0;
-  margin: 0 0 16px 16px;
-  text-align-last: left;
+  text-align: center;
 }
 
 .cardBlockItem li,
@@ -162,34 +170,36 @@ th.title {
   position: relative;
   padding-left: 20px;
   margin-bottom: 10px;
-  font-size: 14px;
+  margin-right: 60px;
+  font-size: 16px;
   color: #1f2d3d;
   line-height: 1.5;
-}
-
-.cardBlockItem li::before,
-.infoList li::before {
-  content: "➡️";
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 14px;
+  text-align: center;
 }
 
 .label {
   font-weight: 600;
+  font-size: 20px;
+  font-family: "Arvo", sans-serif;
   color: #0b3954;
   display: inline-block;
-  width: 130px;
+  width: 150px;
 }
 
 .flagWrapper {
   background-color: #f0f0f0;
+  height: 300px;
+  width: 500px;
   padding: 8px;
   border-radius: 8px;
   display: inline-block;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   margin-left: 90px;
+}
+
+.flagWrapper img {
+  height: 100%;
+  width: 100%;
 }
 
 .countryFlag {
@@ -250,7 +260,7 @@ body.darkTheme td:hover {
 }
 
 .darkTheme .cardTitle {
-  font-size: 1.6em;
+  font-size: 40px;
   font-weight: bold;
   color: #88c0d0;
   display: flex;
@@ -260,7 +270,7 @@ body.darkTheme td:hover {
 }
 
 .darkTheme .cardInfoTitle {
-  font-size: 1.2em;
+  font-size: 30px;
   color: #5e81ac;
   margin-bottom: 12px;
 }
@@ -272,6 +282,11 @@ body.darkTheme td:hover {
   display: inline-block;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   margin-left: 90px;
+}
+
+.darkTheme .flagWrapper img {
+  height: 100%;
+  width: 100%;
 }
 
 .darkTheme .countryFlag {
@@ -297,19 +312,11 @@ body.darkTheme td:hover {
   position: relative;
 }
 
-.darkTheme .infoList li::before {
-  content: "➡️";
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 14px;
-}
-
 .darkTheme .label {
   font-weight: 600;
   color: #81a1c1;
   display: inline-block;
-  width: 130px;
+  width: 150px;
 }
 
 .darkTheme input,
@@ -355,7 +362,7 @@ body.darkTheme td:hover {
   transition: background-color 0.3s ease;
 }
 
-.theme-toggle-checkbox:checked + .theme-toggle-label {
+.theme-toggle-checkbox:checked+.theme-toggle-label {
   background-color: #88c0d0;
 }
 
@@ -363,7 +370,8 @@ body.darkTheme td:hover {
   position: absolute;
   font-size: 18px;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  opacity: 0; /* Початкове значення для невидимості */
+  opacity: 0;
+  /* Початкове значення для невидимості */
 }
 
 .sun {
@@ -375,22 +383,22 @@ body.darkTheme td:hover {
 }
 
 /* Змінюємо opacity для анімації */
-.theme-toggle-checkbox:checked + .theme-toggle-label .sun {
+.theme-toggle-checkbox:checked+.theme-toggle-label .sun {
   opacity: 0;
   transform: translateX(25px);
 }
 
-.theme-toggle-checkbox:checked + .theme-toggle-label .moon {
+.theme-toggle-checkbox:checked+.theme-toggle-label .moon {
   opacity: 1;
   transform: translateX(-25px);
 }
 
-.theme-toggle-checkbox:not(:checked) + .theme-toggle-label .sun {
+.theme-toggle-checkbox:not(:checked)+.theme-toggle-label .sun {
   opacity: 1;
   transform: translateX(-25px);
 }
 
-.theme-toggle-checkbox:not(:checked) + .theme-toggle-label .moon {
+.theme-toggle-checkbox:not(:checked)+.theme-toggle-label .moon {
   opacity: 0;
   transform: translateX(25px);
 }
@@ -468,7 +476,8 @@ body.darkTheme .button:focus {
 }
 
 .weatherTitle {
-  font-size: 1.5rem;
+  font-size: 30px;
+  font-family: "Arvo", sans-serif;
   font-weight: bold;
   color: #006666;
   text-align: center;
@@ -508,6 +517,7 @@ body.darkTheme .button:focus {
   grid-template-columns: 1fr 1fr;
   gap: 8px 12px;
   font-size: 0.95rem;
+
 }
 
 .weatherGrid div {
@@ -536,4 +546,30 @@ body.darkTheme .button:focus {
 .darkTheme .feelsLike {
   font-size: 0.95rem;
   color: #d8dee9;
+}
+
+.extraInfo {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.weatherContainer {
+  width: 45%;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.mapContainer {
+  width: 45%;
+  height: 500px;
+  border-radius: 12px;
+  margin-top: 20px;
+  border-radius: 50px;
+  height: 100%;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
 }

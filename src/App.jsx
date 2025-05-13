@@ -35,6 +35,8 @@ function App() {
           flag: c.flags.svg,
           population: c.population,
           timezones: c.timezones,
+          latitude: c.capitalInfo.latlng?.[0] ?? null,
+          longitude: c.capitalInfo.latlng?.[1] ?? null,
         }));
         setAllCountries(countryData);
       })
